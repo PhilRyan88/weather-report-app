@@ -13,15 +13,22 @@
           method: "GET",
           headers: { accept: "application/json" },
         };
-
-        const url = await fetch(
-          "https://api.tomorrow.io/v4/weather/forecast?location=new%20york&apikey=uZydUHbWwo8HvrKIgkugrSDEpjjmTd9x",
-          options
-        );
-        const data = await url.json();
-        console.log(data);
-        var div = document.querySelector("div");
-        div.innerHTML = data;
+        try {
+          const url = await fetch(
+            "https://api.tomorrow.io/v4/weather/forecast?location=new%20york&apikey=uZydUHbWwo8HvrKIgkugrSDEpjjmTd9x",
+            options
+          );
+          const data = await url.json();
+          console.log(data);
+          var div = document.querySelector("div");
+          div.innerHTML = data.location.name;
+          data.timelines.daily.map((item) => {
+            var p = document.createElement(p);
+            p.innerHTML = item;
+          });
+        } catch (error) {
+          console.error(error);
+        }
       }
       getData();
     </script>
